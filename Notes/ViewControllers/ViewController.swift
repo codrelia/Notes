@@ -7,6 +7,7 @@ class ViewController: UIViewController {
     var infoAboutEmptyNotes: UILabel = UILabel()
     
     
+    
     override func viewDidLoad() {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore  {
