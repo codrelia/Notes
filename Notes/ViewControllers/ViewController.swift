@@ -2,12 +2,15 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // Button for adding a new entry
     var addingAnEntry = UIButton()
+    // Table where notes are stored
     var tableWithNotes = UITableView()
+    // Label with information about the absence of notes
     var infoAboutEmptyNotes: UILabel = UILabel()
     
     
-    
+    // Checking for an early launch of the application. Calling the main methods for visualizing the application.
     override func viewDidLoad() {
         let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
         if !launchedBefore  {
@@ -21,18 +24,20 @@ class ViewController: UIViewController {
         navigationItemEdit()
     }
     
+    // Updating the table for new data
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.tableWithNotes.reloadData()
     }
 
-    
+    // Setting up the navigation bar
     func navigationItemEdit() {
         self.navigationItem.title = "Notes"
         self.navigationItem.largeTitleDisplayMode = .automatic
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editOfCells(_:)))
     }
     
+    // Creating and configuring a table
     func creatingATableWithNotes() {
         tableWithNotes = UITableView(frame: CGRect(x: 0, y: 0, width: self.view.frame.maxX, height: self.view.frame.size.height), style: .plain)
         self.tableWithNotes.delegate = self
@@ -40,6 +45,7 @@ class ViewController: UIViewController {
         self.view.addSubview(tableWithNotes)
     }
     
+    // Adding a new note to the table
     func buttonForAddingNotes() {
         let imageOfAdd = UIImage(named: "add")
         addingAnEntry = UIButton(frame: CGRect(x: view.bounds.midX - 25, y: view.bounds.maxY - 100, width: 50, height: 50))
@@ -49,11 +55,13 @@ class ViewController: UIViewController {
         self.view.addSubview(addingAnEntry)
     }
     
+    // Adding a controller to the stack, where further writing or editing of a note will take place
     func callingANewController() {
         let newViewController = ViewControllerWritingNotes()
         navigationController?.pushViewController(newViewController, animated: true)
     }
     
+    // Setting up a label with information about missing notes
     func forLabelWithNoNotes() {
         infoAboutEmptyNotes = UILabel(frame: CGRect(x: view.bounds.midX - 22.5, y: view.bounds.midY, width: 50, height: 50))
         infoAboutEmptyNotes.text = "No Notes"
@@ -61,12 +69,13 @@ class ViewController: UIViewController {
         infoAboutEmptyNotes.font = UIFont.systemFont(ofSize: 10)
     }
     
+    // Action to click on the new record button
     @objc func addingANewNote(_ sender: Any) {
         currentIndex = -1
         callingANewController()
     }
     
-    
+    // Action to click on the edit button
     @objc func editOfCells(_ sender: Any) {
         tableWithNotes.setEditing(!tableWithNotes.isEditing, animated: true)
     }

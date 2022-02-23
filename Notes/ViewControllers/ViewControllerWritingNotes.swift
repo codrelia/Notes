@@ -2,14 +2,17 @@ import UIKit
 
 class ViewControllerWritingNotes: UIViewController {
     
+    // TextView, where notes will be recorded in the future
     var textFieldForNotes = UITextView()
     
+    // Calling basic display methods
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarForNewNotes()
         createATextFieldForNotes()
     }
     
+    // Setting up the navigation bar for this controller
     func navigationBarForNewNotes() {
         self.navigationItem.largeTitleDisplayMode = .never
         let imageOfSavingANote = UIImage(named: "done")
@@ -20,6 +23,7 @@ class ViewControllerWritingNotes: UIViewController {
         self.navigationItem.rightBarButtonItems = [buttonOfDone, buttonForDelete]
     }
     
+    // Displaying a text view for recording notes
     func createATextFieldForNotes() {
         textFieldForNotes = UITextView(frame: CGRect(x: 10, y: 0, width: self.view.bounds.maxX - 10, height: self.view.bounds.maxY))
         
@@ -29,8 +33,10 @@ class ViewControllerWritingNotes: UIViewController {
             textFieldForNotes.text = notes[currentIndex][0]
         }
         self.view.addSubview(textFieldForNotes)
+    
     }
     
+    // Saving current changes
     @objc func saveANote(_ sender: Any) {
         if textFieldForNotes.text != "" {
             if currentIndex == -1 {
@@ -44,6 +50,7 @@ class ViewControllerWritingNotes: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Deleting the current note from alert
     @objc func deleteANote(_ sender: Any) {
         let newActionForDelete = UIAlertAction(title: "Yes", style: .default, handler: { _ in
             if currentIndex != -1 {

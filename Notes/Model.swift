@@ -1,7 +1,10 @@
 import Foundation
 
+// The current index that the user clicked on. If the index is -1, then the click did not occur.
 var currentIndex: Int = -1
+// Date Formatter
 let formatter = DateFormatter()
+// Two-dimensional array with notes and dates of their changes
 var notes: [[String]] {
     set {
         UserDefaults.standard.set(newValue, forKey: "Note")
@@ -18,6 +21,7 @@ var notes: [[String]] {
     }
 }
 
+// Marks the current time
 func currentDate() -> String {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
